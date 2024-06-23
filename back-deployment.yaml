@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gcr.io
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gcr.io
+  template:
+    metadata:
+      labels:
+        app: gcr.io
+    spec:
+      containers:
+        - name: backend
+          image: gcr.io/ecstatic-galaxy-407119/nestjs-back
+          ports:
+            - containerPort: 3000

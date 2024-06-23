@@ -1,0 +1,26 @@
+# Dockerfile
+
+FROM mongo:latest
+ENV MONGO_INITDB_ROOT_USERNAME samuelosiris
+ENV MONGO_INITDB_ROOT_PASSWORD 1162830
+COPY init-mongo.js /docker-entrypoint-initdb.d/
+
+FROM node:latest
+
+WORKDIR /samuelosiris/src/app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+COPY .env ./
+
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+
+LABEL name="nestjs"
